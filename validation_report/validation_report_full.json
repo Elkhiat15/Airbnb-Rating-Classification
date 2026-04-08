@@ -1,0 +1,1420 @@
+{
+  "metadata": {
+    "generated_at": "2026-04-08T21:39:51.779492",
+    "dataset_path": "/home/abdallah/CMP4-Semster2/Airbnb-Rating-Classification/data/merged_airbnb_data.csv",
+    "total_rows": 75111,
+    "total_columns": 17,
+    "columns": [
+      "id",
+      "property_type",
+      "room_type",
+      "amenities",
+      "accommodates",
+      "bathrooms",
+      "city",
+      "host_identity_verified",
+      "host_response_rate",
+      "latitude",
+      "longitude",
+      "neighbourhood",
+      "number_of_reviews",
+      "review_scores_rating",
+      "bedrooms",
+      "beds",
+      "price"
+    ]
+  },
+  "summary": {
+    "dimensions_evaluated": 7,
+    "dimensions_passed": 4,
+    "dimension_statuses": {
+      "1_accuracy": "FAIL",
+      "2_completeness": "FAIL",
+      "3_consistency": "PASS",
+      "4_uniqueness": "PASS",
+      "5_outlier_detection": "FAIL",
+      "7_distribution_profile": "PASS",
+      "8_relationships": "PASS"
+    },
+    "overall_status": "FAIL"
+  },
+  "dimensions": {
+    "1_accuracy": {
+      "dimension": "Accuracy",
+      "checks": [
+        {
+          "check": "price in [10.0, 10000.0]",
+          "column": "price",
+          "type": "range",
+          "valid_min": 10.0,
+          "valid_max": 10000.0,
+          "violations": 2,
+          "violation_pct": 0.003,
+          "threshold_pct": 0.0,
+          "status": "FAIL"
+        },
+        {
+          "check": "review_scores_rating in [0.0, 5.0]",
+          "column": "review_scores_rating",
+          "type": "range",
+          "valid_min": 0.0,
+          "valid_max": 5.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "accommodates in [1, 16]",
+          "column": "accommodates",
+          "type": "range",
+          "valid_min": 1,
+          "valid_max": 16,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "bathrooms in [0.0, 10.0]",
+          "column": "bathrooms",
+          "type": "range",
+          "valid_min": 0.0,
+          "valid_max": 10.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "bedrooms in [0.0, 12.0]",
+          "column": "bedrooms",
+          "type": "range",
+          "valid_min": 0.0,
+          "valid_max": 12.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "beds in [0.0, 20.0]",
+          "column": "beds",
+          "type": "range",
+          "valid_min": 0.0,
+          "valid_max": 20.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "number_of_reviews in [0, 10000]",
+          "column": "number_of_reviews",
+          "type": "range",
+          "valid_min": 0,
+          "valid_max": 10000,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "host_response_rate in [0.0, 100.0]",
+          "column": "host_response_rate",
+          "type": "range",
+          "valid_min": 0.0,
+          "valid_max": 100.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "latitude in [24.0, 50.0]",
+          "column": "latitude",
+          "type": "range",
+          "valid_min": 24.0,
+          "valid_max": 50.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "longitude in [-125.0, -66.0]",
+          "column": "longitude",
+          "type": "range",
+          "valid_min": -125.0,
+          "valid_max": -66.0,
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "status": "PASS"
+        },
+        {
+          "check": "room_type in valid set",
+          "column": "room_type",
+          "type": "set_membership",
+          "valid_set": [
+            "Shared room",
+            "Entire home/apt",
+            "Private room"
+          ],
+          "violations": 925,
+          "violation_pct": 1.232,
+          "threshold_pct": 0.0,
+          "sample_invalid_values": [
+            "Entire home",
+            "Entire rental unit",
+            "Entire villa",
+            "Entire guesthouse",
+            "Entire cabin",
+            "Entire serviced apartment",
+            "Entire guest suite",
+            "Entire cottage",
+            "Room",
+            "Entire bungalow"
+          ],
+          "status": "FAIL"
+        },
+        {
+          "check": "city in valid set",
+          "column": "city",
+          "type": "set_membership",
+          "valid_set": [
+            "Boston",
+            "Los Angeles",
+            "Washington DC",
+            "San Francisco",
+            "New York",
+            "Chicago"
+          ],
+          "violations": 67924,
+          "violation_pct": 90.431,
+          "threshold_pct": 0.0,
+          "sample_invalid_values": [
+            "NYC",
+            "SF",
+            "DC",
+            "LA",
+            "Los Angeles, CA, USA",
+            "San Francisco, CA, USA",
+            "New York, NY, USA",
+            "Chicago, IL, USA",
+            "Washington, DC, USA"
+          ],
+          "status": "FAIL"
+        },
+        {
+          "check": "host_identity_verified in valid set",
+          "column": "host_identity_verified",
+          "type": "set_membership",
+          "valid_set": [
+            false,
+            true
+          ],
+          "violations": 73923,
+          "violation_pct": 98.665,
+          "threshold_pct": 0.0,
+          "sample_invalid_values": [
+            "t",
+            "f"
+          ],
+          "status": "FAIL"
+        },
+        {
+          "check": "property_type in valid set",
+          "column": "property_type",
+          "type": "set_membership",
+          "valid_set": [
+            "Condo",
+            "House",
+            "Hotel",
+            "Guesthouse",
+            "Unique Stay",
+            "Loft",
+            "Townhouse",
+            "Shared Room",
+            "Apartment"
+          ],
+          "violations": 5691,
+          "violation_pct": 7.577,
+          "threshold_pct": 0.0,
+          "sample_invalid_values": [
+            "Condominium",
+            "Hostel",
+            "Guest suite",
+            "Bed & Breakfast",
+            "Bungalow",
+            "Dorm",
+            "Other",
+            "Camper/RV",
+            "Villa",
+            "Boutique hotel"
+          ],
+          "status": "FAIL"
+        }
+      ],
+      "total_checks": 14,
+      "passed": 9,
+      "failed": 5,
+      "overall_status": "FAIL"
+    },
+    "2_completeness": {
+      "dimension": "Completeness",
+      "row_count": {
+        "actual": 75111,
+        "minimum_expected": 70000,
+        "status": "PASS"
+      },
+      "schema": {
+        "expected_columns": 16,
+        "actual_columns": 17,
+        "missing_columns": [],
+        "extra_columns": [
+          "id"
+        ],
+        "status": "PASS"
+      },
+      "column_checks": [
+        {
+          "column": "property_type",
+          "null_count": 0,
+          "null_pct": 0.0,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "PASS"
+        },
+        {
+          "column": "room_type",
+          "null_count": 46,
+          "null_pct": 0.061,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "amenities",
+          "null_count": 1,
+          "null_pct": 0.001,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "accommodates",
+          "null_count": 107,
+          "null_pct": 0.142,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "bathrooms",
+          "null_count": 235,
+          "null_pct": 0.313,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "city",
+          "null_count": 0,
+          "null_pct": 0.0,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "PASS"
+        },
+        {
+          "column": "host_identity_verified",
+          "null_count": 188,
+          "null_pct": 0.25,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "host_response_rate",
+          "null_count": 18355,
+          "null_pct": 24.437,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "latitude",
+          "null_count": 2,
+          "null_pct": 0.003,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "longitude",
+          "null_count": 2,
+          "null_pct": 0.003,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "neighbourhood",
+          "null_count": 6906,
+          "null_pct": 9.194,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "number_of_reviews",
+          "null_count": 7,
+          "null_pct": 0.009,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "bedrooms",
+          "null_count": 174,
+          "null_pct": 0.232,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "beds",
+          "null_count": 180,
+          "null_pct": 0.24,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        },
+        {
+          "column": "price",
+          "null_count": 0,
+          "null_pct": 0.0,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "PASS"
+        },
+        {
+          "column": "review_scores_rating",
+          "null_count": 16729,
+          "null_pct": 22.272,
+          "max_allowed_null_pct": 0.0,
+          "criticality": "critical",
+          "status": "FAIL"
+        }
+      ],
+      "total_checks": 16,
+      "passed": 3,
+      "failed": 13,
+      "overall_missing_cells": 42932,
+      "overall_missing_pct": 3.362,
+      "overall_status": "FAIL"
+    },
+    "3_consistency": {
+      "dimension": "Consistency",
+      "checks": [
+        {
+          "check": "beds >= bedrooms",
+          "violations": 915,
+          "violation_pct": 1.223,
+          "threshold_pct": 2.0000000000000018,
+          "note": "A listing should have at least as many beds as bedrooms",
+          "status": "PASS"
+        },
+        {
+          "check": "accommodates >= beds",
+          "violations": 519,
+          "violation_pct": 0.693,
+          "threshold_pct": 5.000000000000004,
+          "note": "Guest capacity should not be less than number of beds",
+          "status": "PASS"
+        },
+        {
+          "check": "number_of_reviews >= 0",
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "note": "Review count cannot be negative",
+          "status": "PASS"
+        },
+        {
+          "check": "price > 0",
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "note": "Price must be strictly positive",
+          "status": "PASS"
+        },
+        {
+          "check": "host_response_rate in [0, 100]",
+          "violations": 0,
+          "violation_pct": 0.0,
+          "threshold_pct": 0.0,
+          "note": "Response rate must be a valid percentage",
+          "status": "PASS"
+        },
+        {
+          "check": "price is numeric dtype",
+          "column": "price",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "accommodates is numeric dtype",
+          "column": "accommodates",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "bathrooms is numeric dtype",
+          "column": "bathrooms",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "bedrooms is numeric dtype",
+          "column": "bedrooms",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "beds is numeric dtype",
+          "column": "beds",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "number_of_reviews is numeric dtype",
+          "column": "number_of_reviews",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "latitude is numeric dtype",
+          "column": "latitude",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "longitude is numeric dtype",
+          "column": "longitude",
+          "actual_dtype": "float64",
+          "note": "Non-numeric values coerced to NaN on load",
+          "status": "PASS"
+        },
+        {
+          "check": "coordinates within US bounding box",
+          "violations": 2,
+          "violation_pct": 0.003,
+          "threshold_pct": 1.0000000000000009,
+          "note": "All listed cities are US cities \u2014 lat/lon must fall in US bounds",
+          "status": "PASS"
+        }
+      ],
+      "total_checks": 14,
+      "passed": 14,
+      "failed": 0,
+      "overall_status": "PASS"
+    },
+    "4_uniqueness": {
+      "dimension": "Uniqueness",
+      "checks": [
+        {
+          "check": "No exact full-row duplicates",
+          "duplicate_count": 0,
+          "duplicate_pct": 0.0,
+          "action_if_failed": "df.drop_duplicates()",
+          "status": "PASS"
+        },
+        {
+          "check": "Unique (latitude, longitude) pairs",
+          "duplicate_count": 10,
+          "duplicate_pct": 0.013,
+          "note": "Same coordinates may indicate duplicate listing or same building",
+          "status": "PASS"
+        },
+        {
+          "check": "Unique listing fingerprint (lat+lon+price+room_type)",
+          "columns_used": [
+            "latitude",
+            "longitude",
+            "price",
+            "room_type"
+          ],
+          "duplicate_count": 0,
+          "duplicate_pct": 0.0,
+          "note": "Strong signal of duplicate listings from multiple sources",
+          "status": "PASS"
+        }
+      ],
+      "total_checks": 3,
+      "passed": 3,
+      "failed": 0,
+      "overall_status": "PASS"
+    },
+    "5_outlier_detection": {
+      "dimension": "Outlier Detection",
+      "methods_used": [
+        "IQR (Tukey fences, multiplier=1.5)",
+        "Z-score (threshold=3.0)"
+      ],
+      "iqr_multiplier": 1.5,
+      "zscore_threshold": 3.0,
+      "outlier_flag_threshold_pct": 5.0,
+      "columns": {
+        "price": {
+          "n_non_null": 75111,
+          "iqr_method": {
+            "lower_fence": -96.0,
+            "upper_fence": 360.0,
+            "outlier_count": 5489,
+            "outlier_pct": 7.308,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1715,
+            "outlier_pct": 2.283,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            379.0,
+            450.0,
+            479.0,
+            500.0,
+            700.0,
+            750.0,
+            850.0,
+            1000.0,
+            1050.0,
+            1275.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "accommodates": {
+          "n_non_null": 75004,
+          "iqr_method": {
+            "lower_fence": -1.0,
+            "upper_fence": 7.0,
+            "outlier_count": 3866,
+            "outlier_pct": 5.154,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1675,
+            "outlier_pct": 2.233,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            8.0,
+            9.0,
+            10.0,
+            11.0,
+            12.0,
+            13.0,
+            14.0,
+            15.0,
+            16.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "bathrooms": {
+          "n_non_null": 74876,
+          "iqr_method": {
+            "lower_fence": 1.0,
+            "upper_fence": 1.0,
+            "outlier_count": 16339,
+            "outlier_pct": 21.821,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1074,
+            "outlier_pct": 1.434,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            0.0,
+            0.5,
+            1.5,
+            2.0,
+            2.5,
+            3.0,
+            3.5,
+            4.0,
+            4.5,
+            5.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "bedrooms": {
+          "n_non_null": 74937,
+          "iqr_method": {
+            "lower_fence": 1.0,
+            "upper_fence": 1.0,
+            "outlier_count": 24971,
+            "outlier_pct": 33.323,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 2031,
+            "outlier_pct": 2.71,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            0.0,
+            2.0,
+            3.0,
+            4.0,
+            5.0,
+            6.0,
+            7.0,
+            8.0,
+            9.0,
+            10.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "beds": {
+          "n_non_null": 74931,
+          "iqr_method": {
+            "lower_fence": -0.5,
+            "upper_fence": 3.5,
+            "outlier_count": 6051,
+            "outlier_pct": 8.075,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1438,
+            "outlier_pct": 1.919,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            4.0,
+            5.0,
+            6.0,
+            7.0,
+            8.0,
+            9.0,
+            10.0,
+            12.0,
+            13.0,
+            16.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "number_of_reviews": {
+          "n_non_null": 75104,
+          "iqr_method": {
+            "lower_fence": -33.5,
+            "upper_fence": 58.5,
+            "outlier_count": 8323,
+            "outlier_pct": 11.082,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1563,
+            "outlier_pct": 2.081,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            59.0,
+            67.0,
+            73.0,
+            82.0,
+            85.0,
+            105.0,
+            138.0,
+            144.0,
+            159.0,
+            248.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "host_response_rate": {
+          "n_non_null": 56756,
+          "iqr_method": {
+            "lower_fence": 100.0,
+            "upper_fence": 100.0,
+            "outlier_count": 12665,
+            "outlier_pct": 22.315,
+            "status": "FAIL"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1456,
+            "outlier_pct": 2.565,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            50.0,
+            67.0,
+            68.0,
+            71.0,
+            80.0,
+            82.0,
+            83.0,
+            86.0,
+            90.0,
+            92.0
+          ],
+          "overall_status": "FAIL"
+        },
+        "review_scores_rating": {
+          "n_non_null": 58382,
+          "iqr_method": {
+            "lower_fence": 4.0,
+            "upper_fence": 5.6,
+            "outlier_count": 1722,
+            "outlier_pct": 2.95,
+            "status": "PASS"
+          },
+          "zscore_method": {
+            "threshold": 3.0,
+            "outlier_count": 1043,
+            "outlier_pct": 1.787,
+            "status": "PASS"
+          },
+          "sample_outlier_values_iqr": [
+            1.0,
+            2.0,
+            2.75,
+            3.0,
+            3.5,
+            3.6,
+            3.65,
+            3.75,
+            3.8,
+            3.9
+          ],
+          "overall_status": "PASS"
+        }
+      },
+      "total_checks": 8,
+      "passed": 1,
+      "failed": 7,
+      "overall_status": "FAIL"
+    },
+    "7_distribution_profile": {
+      "dimension": "Distribution Profile",
+      "numeric_profiles": {
+        "price": {
+          "count": 75111,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "mean": 164.063,
+          "median": 115.0,
+          "std": 173.9929,
+          "min": 1.0,
+          "max": 2636.0,
+          "q1": 75.0,
+          "q3": 189.0,
+          "iqr": 114.0,
+          "skewness": 4.2039,
+          "kurtosis": 25.439,
+          "distribution_shape": "heavily_right_skewed",
+          "iqr_outlier_count": 5489,
+          "iqr_outlier_pct": 7.308,
+          "iqr_lower_fence": -96.0,
+          "iqr_upper_fence": 360.0
+        },
+        "accommodates": {
+          "count": 75004,
+          "null_count": 107,
+          "null_pct": 0.142,
+          "mean": 3.1912,
+          "median": 2.0,
+          "std": 2.1897,
+          "min": 1.0,
+          "max": 16.0,
+          "q1": 2.0,
+          "q3": 4.0,
+          "iqr": 2.0,
+          "skewness": 2.1957,
+          "kurtosis": 7.0838,
+          "distribution_shape": "heavily_right_skewed",
+          "iqr_outlier_count": 3866,
+          "iqr_outlier_pct": 5.154,
+          "iqr_lower_fence": -1.0,
+          "iqr_upper_fence": 7.0
+        },
+        "bathrooms": {
+          "count": 74876,
+          "null_count": 235,
+          "null_pct": 0.313,
+          "mean": 1.2412,
+          "median": 1.0,
+          "std": 0.5892,
+          "min": 0.0,
+          "max": 8.0,
+          "q1": 1.0,
+          "q3": 1.0,
+          "iqr": 0.0,
+          "skewness": 3.6102,
+          "kurtosis": 21.1723,
+          "distribution_shape": "heavily_right_skewed",
+          "iqr_outlier_count": 16339,
+          "iqr_outlier_pct": 21.821,
+          "iqr_lower_fence": 1.0,
+          "iqr_upper_fence": 1.0
+        },
+        "bedrooms": {
+          "count": 74937,
+          "null_count": 174,
+          "null_pct": 0.232,
+          "mean": 1.2804,
+          "median": 1.0,
+          "std": 0.8683,
+          "min": 0.0,
+          "max": 10.0,
+          "q1": 1.0,
+          "q3": 1.0,
+          "iqr": 0.0,
+          "skewness": 1.9644,
+          "kurtosis": 7.185,
+          "distribution_shape": "right_skewed",
+          "iqr_outlier_count": 24971,
+          "iqr_outlier_pct": 33.323,
+          "iqr_lower_fence": 1.0,
+          "iqr_upper_fence": 1.0
+        },
+        "beds": {
+          "count": 74931,
+          "null_count": 180,
+          "null_pct": 0.24,
+          "mean": 1.7314,
+          "median": 1.0,
+          "std": 1.2763,
+          "min": 0.0,
+          "max": 18.0,
+          "q1": 1.0,
+          "q3": 2.0,
+          "iqr": 1.0,
+          "skewness": 3.274,
+          "kurtosis": 18.5667,
+          "distribution_shape": "heavily_right_skewed",
+          "iqr_outlier_count": 6051,
+          "iqr_outlier_pct": 8.075,
+          "iqr_lower_fence": -0.5,
+          "iqr_upper_fence": 3.5
+        },
+        "number_of_reviews": {
+          "count": 75104,
+          "null_count": 7,
+          "null_pct": 0.009,
+          "mean": 22.0838,
+          "median": 6.0,
+          "std": 42.5278,
+          "min": 0.0,
+          "max": 990.0,
+          "q1": 1.0,
+          "q3": 24.0,
+          "iqr": 23.0,
+          "skewness": 5.0847,
+          "kurtosis": 50.1836,
+          "distribution_shape": "heavily_right_skewed",
+          "iqr_outlier_count": 8323,
+          "iqr_outlier_pct": 11.082,
+          "iqr_lower_fence": -33.5,
+          "iqr_upper_fence": 58.5
+        },
+        "host_response_rate": {
+          "count": 56756,
+          "null_count": 18355,
+          "null_pct": 24.437,
+          "mean": 94.4339,
+          "median": 100.0,
+          "std": 16.226,
+          "min": 0.0,
+          "max": 100.0,
+          "q1": 100.0,
+          "q3": 100.0,
+          "iqr": 0.0,
+          "skewness": -4.1148,
+          "kurtosis": 18.4585,
+          "distribution_shape": "left_skewed",
+          "iqr_outlier_count": 12665,
+          "iqr_outlier_pct": 22.315,
+          "iqr_lower_fence": 100.0,
+          "iqr_upper_fence": 100.0
+        },
+        "review_scores_rating": {
+          "count": 58382,
+          "null_count": 16729,
+          "null_pct": 22.272,
+          "mean": 4.7069,
+          "median": 4.8,
+          "std": 0.3898,
+          "min": 1.0,
+          "max": 5.0,
+          "q1": 4.6,
+          "q3": 5.0,
+          "iqr": 0.4,
+          "skewness": -3.3985,
+          "kurtosis": 20.226,
+          "distribution_shape": "left_skewed",
+          "iqr_outlier_count": 1722,
+          "iqr_outlier_pct": 2.95,
+          "iqr_lower_fence": 4.0,
+          "iqr_upper_fence": 5.6
+        },
+        "latitude": {
+          "count": 75109,
+          "null_count": 2,
+          "null_pct": 0.003,
+          "mean": 38.4489,
+          "median": 40.6612,
+          "std": 3.0758,
+          "min": 33.3389,
+          "max": 42.3904,
+          "q1": 34.13,
+          "q3": 40.7465,
+          "iqr": 6.6165,
+          "skewness": -0.5357,
+          "kurtosis": -1.4078,
+          "distribution_shape": "approximately_symmetric",
+          "iqr_outlier_count": 0,
+          "iqr_outlier_pct": 0.0,
+          "iqr_lower_fence": 24.2051,
+          "iqr_upper_fence": 50.6713
+        },
+        "longitude": {
+          "count": 75109,
+          "null_count": 2,
+          "null_pct": 0.003,
+          "mean": -92.4444,
+          "median": -77.0006,
+          "std": 21.694,
+          "min": -122.6145,
+          "max": -70.985,
+          "q1": -118.3429,
+          "q3": -73.955,
+          "iqr": 44.3879,
+          "skewness": -0.4048,
+          "kurtosis": -1.7735,
+          "distribution_shape": "approximately_symmetric",
+          "iqr_outlier_count": 0,
+          "iqr_outlier_pct": 0.0,
+          "iqr_lower_fence": -184.9248,
+          "iqr_upper_fence": -7.3731
+        }
+      },
+      "categorical_profiles": {
+        "property_type": {
+          "unique_values": 82,
+          "null_count": 0,
+          "top_10_values": {
+            "Apartment": 49339,
+            "House": 16511,
+            "Condominium": 2658,
+            "Townhouse": 1731,
+            "Loft": 1252,
+            "Other": 607,
+            "Guesthouse": 519,
+            "Bed & Breakfast": 462,
+            "Bungalow": 370,
+            "Home": 328
+          },
+          "dominant_value_pct": 65.688,
+          "balance_flag": "imbalanced"
+        },
+        "room_type": {
+          "unique_values": 23,
+          "null_count": 46,
+          "top_10_values": {
+            "Entire home/apt": 41310,
+            "Private room": 30667,
+            "Shared room": 2163,
+            "Entire rental unit": 333,
+            "Entire home": 327,
+            "Room": 116,
+            "nan": 46,
+            "Entire townhouse": 39,
+            "Entire condo": 27,
+            "Entire guest suite": 22
+          },
+          "dominant_value_pct": 54.999,
+          "balance_flag": "imbalanced"
+        },
+        "city": {
+          "unique_values": 11,
+          "null_count": 0,
+          "top_10_values": {
+            "NYC": 32349,
+            "LA": 22453,
+            "SF": 6434,
+            "DC": 5688,
+            "Chicago": 3719,
+            "Boston": 3468,
+            "Los Angeles, CA, USA": 200,
+            "San Francisco, CA, USA": 200,
+            "New York, NY, USA": 200,
+            "Chicago, IL, USA": 200
+          },
+          "dominant_value_pct": 43.068,
+          "balance_flag": "balanced"
+        },
+        "host_identity_verified": {
+          "unique_values": 4,
+          "null_count": 188,
+          "top_10_values": {
+            "t": 49748,
+            "f": 24175,
+            "True": 958,
+            "nan": 188,
+            "False": 42
+          },
+          "dominant_value_pct": 66.233,
+          "balance_flag": "imbalanced"
+        },
+        "neighbourhood": {
+          "unique_values": 712,
+          "null_count": 6906,
+          "top_10_values": {
+            "nan": 6906,
+            "Williamsburg": 2862,
+            "Bedford-Stuyvesant": 2166,
+            "Bushwick": 1601,
+            "Upper West Side": 1396,
+            "Mid-Wilshire": 1392,
+            "Harlem": 1374,
+            "Hollywood": 1321,
+            "Hell's Kitchen": 1299,
+            "Venice": 1223
+          },
+          "dominant_value_pct": 9.194,
+          "balance_flag": "balanced"
+        }
+      },
+      "sanity_checks": [
+        {
+          "check": "Median review_scores_rating in [4.0, 5.0]",
+          "value": 4.8,
+          "status": "PASS",
+          "note": "Airbnb ratings are known to skew positive"
+        },
+        {
+          "check": ">= 85% of ratings in [3.5, 5.0]",
+          "value_pct": 98.549,
+          "status": "PASS"
+        },
+        {
+          "check": "Median price in [$50, $300]",
+          "value": 115.0,
+          "status": "PASS"
+        },
+        {
+          "check": "Most common room_type is Entire home/apt or Private room",
+          "value": "Entire home/apt",
+          "status": "PASS"
+        },
+        {
+          "check": "Most common accommodates value in [1, 4]",
+          "value": 2,
+          "status": "PASS",
+          "note": "Most Airbnb listings are for 1-4 guests"
+        }
+      ],
+      "sanity_checks_passed": 5,
+      "sanity_checks_failed": 0,
+      "overall_status": "PASS"
+    },
+    "8_relationships": {
+      "dimension": "Relationships",
+      "pairwise_checks": {
+        "results": [
+          {
+            "pair": "bedrooms vs accommodates",
+            "expected": "positive_correlation",
+            "pearson_r": 0.7363,
+            "pearson_p": 0.0,
+            "spearman_r": 0.6167,
+            "spearman_p": 0.0,
+            "strength": "strong",
+            "statistically_significant": true,
+            "status": "PASS"
+          },
+          {
+            "pair": "beds vs accommodates",
+            "expected": "positive_correlation",
+            "pearson_r": 0.8302,
+            "pearson_p": 0.0,
+            "spearman_r": 0.8142,
+            "spearman_p": 0.0,
+            "strength": "strong",
+            "statistically_significant": true,
+            "status": "PASS"
+          },
+          {
+            "pair": "beds vs bedrooms",
+            "expected": "positive_correlation",
+            "pearson_r": 0.7155,
+            "pearson_p": 0.0,
+            "spearman_r": 0.6539,
+            "spearman_p": 0.0,
+            "strength": "strong",
+            "statistically_significant": true,
+            "status": "PASS"
+          },
+          {
+            "pair": "price vs accommodates",
+            "expected": "positive_correlation",
+            "pearson_r": 0.5918,
+            "pearson_p": 0.0,
+            "spearman_r": 0.618,
+            "spearman_p": 0.0,
+            "strength": "moderate",
+            "statistically_significant": true,
+            "status": "PASS"
+          },
+          {
+            "pair": "price vs bedrooms",
+            "expected": "positive_correlation",
+            "pearson_r": 0.5788,
+            "pearson_p": 0.0,
+            "spearman_r": 0.4539,
+            "spearman_p": 0.0,
+            "strength": "moderate",
+            "statistically_significant": true,
+            "status": "PASS"
+          },
+          {
+            "pair": "bathrooms vs bedrooms",
+            "expected": "positive_correlation",
+            "pearson_r": 0.5891,
+            "pearson_p": 0.0,
+            "spearman_r": 0.5015,
+            "spearman_p": 0.0,
+            "strength": "moderate",
+            "statistically_significant": true,
+            "status": "PASS"
+          }
+        ],
+        "total": 6,
+        "passed": 6,
+        "failed": 0
+      },
+      "target_feature_correlations": {
+        "price": {
+          "pearson_r": 0.0754,
+          "pearson_p": 0.0,
+          "spearman_r": 0.097,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "positive",
+          "strength": "weak"
+        },
+        "accommodates": {
+          "pearson_r": -0.0225,
+          "pearson_p": 1e-06,
+          "spearman_r": -0.0419,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "negative",
+          "strength": "weak"
+        },
+        "bathrooms": {
+          "pearson_r": 0.01,
+          "pearson_p": 0.027008,
+          "spearman_r": 0.0312,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "positive",
+          "strength": "weak"
+        },
+        "bedrooms": {
+          "pearson_r": 0.0143,
+          "pearson_p": 0.001656,
+          "spearman_r": 0.02,
+          "spearman_p": 1e-05,
+          "significant": true,
+          "direction": "positive",
+          "strength": "weak"
+        },
+        "beds": {
+          "pearson_r": -0.0315,
+          "pearson_p": 0.0,
+          "spearman_r": -0.042,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "negative",
+          "strength": "weak"
+        },
+        "number_of_reviews": {
+          "pearson_r": 0.0137,
+          "pearson_p": 0.002507,
+          "spearman_r": -0.2477,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "positive",
+          "strength": "weak"
+        },
+        "host_response_rate": {
+          "pearson_r": 0.0968,
+          "pearson_p": 0.0,
+          "spearman_r": 0.1043,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "positive",
+          "strength": "weak"
+        },
+        "latitude": {
+          "pearson_r": -0.0269,
+          "pearson_p": 0.0,
+          "spearman_r": -0.0448,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "negative",
+          "strength": "weak"
+        },
+        "longitude": {
+          "pearson_r": -0.0462,
+          "pearson_p": 0.0,
+          "spearman_r": -0.0811,
+          "spearman_p": 0.0,
+          "significant": true,
+          "direction": "negative",
+          "strength": "weak"
+        }
+      },
+      "pearson_correlation_matrix": {
+        "price": {
+          "price": 1.0,
+          "accommodates": 0.5918,
+          "bathrooms": 0.5135,
+          "bedrooms": 0.5788,
+          "beds": 0.5104,
+          "number_of_reviews": -0.0,
+          "host_response_rate": 0.0108,
+          "review_scores_rating": 0.0754,
+          "latitude": -0.0243,
+          "longitude": -0.0634
+        },
+        "accommodates": {
+          "price": 0.5918,
+          "accommodates": 1.0,
+          "bathrooms": 0.5134,
+          "bedrooms": 0.7363,
+          "beds": 0.8302,
+          "number_of_reviews": 0.0279,
+          "host_response_rate": 0.0479,
+          "review_scores_rating": -0.0225,
+          "latitude": -0.0627,
+          "longitude": -0.0709
+        },
+        "bathrooms": {
+          "price": 0.5135,
+          "accommodates": 0.5134,
+          "bathrooms": 1.0,
+          "bedrooms": 0.5891,
+          "beds": 0.5235,
+          "number_of_reviews": -0.0393,
+          "host_response_rate": 0.021,
+          "review_scores_rating": 0.01,
+          "latitude": -0.1222,
+          "longitude": -0.1246
+        },
+        "bedrooms": {
+          "price": 0.5788,
+          "accommodates": 0.7363,
+          "bathrooms": 0.5891,
+          "bedrooms": 1.0,
+          "beds": 0.7155,
+          "number_of_reviews": -0.0262,
+          "host_response_rate": 0.0331,
+          "review_scores_rating": 0.0143,
+          "latitude": -0.0329,
+          "longitude": -0.0553
+        },
+        "beds": {
+          "price": 0.5104,
+          "accommodates": 0.8302,
+          "bathrooms": 0.5235,
+          "bedrooms": 0.7155,
+          "beds": 1.0,
+          "number_of_reviews": 0.0256,
+          "host_response_rate": 0.0489,
+          "review_scores_rating": -0.0315,
+          "latitude": -0.061,
+          "longitude": -0.0633
+        },
+        "number_of_reviews": {
+          "price": -0.0,
+          "accommodates": 0.0279,
+          "bathrooms": -0.0393,
+          "bedrooms": -0.0262,
+          "beds": 0.0256,
+          "number_of_reviews": 1.0,
+          "host_response_rate": 0.1028,
+          "review_scores_rating": 0.0137,
+          "latitude": -0.007,
+          "longitude": -0.0419
+        },
+        "host_response_rate": {
+          "price": 0.0108,
+          "accommodates": 0.0479,
+          "bathrooms": 0.021,
+          "bedrooms": 0.0331,
+          "beds": 0.0489,
+          "number_of_reviews": 0.1028,
+          "host_response_rate": 1.0,
+          "review_scores_rating": 0.0968,
+          "latitude": -0.016,
+          "longitude": -0.0347
+        },
+        "review_scores_rating": {
+          "price": 0.0754,
+          "accommodates": -0.0225,
+          "bathrooms": 0.01,
+          "bedrooms": 0.0143,
+          "beds": -0.0315,
+          "number_of_reviews": 0.0137,
+          "host_response_rate": 0.0968,
+          "review_scores_rating": 1.0,
+          "latitude": -0.0269,
+          "longitude": -0.0462
+        },
+        "latitude": {
+          "price": -0.0243,
+          "accommodates": -0.0627,
+          "bathrooms": -0.1222,
+          "bedrooms": -0.0329,
+          "beds": -0.061,
+          "number_of_reviews": -0.007,
+          "host_response_rate": -0.016,
+          "review_scores_rating": -0.0269,
+          "latitude": 1.0,
+          "longitude": 0.8923
+        },
+        "longitude": {
+          "price": -0.0634,
+          "accommodates": -0.0709,
+          "bathrooms": -0.1246,
+          "bedrooms": -0.0553,
+          "beds": -0.0633,
+          "number_of_reviews": -0.0419,
+          "host_response_rate": -0.0347,
+          "review_scores_rating": -0.0462,
+          "latitude": 0.8923,
+          "longitude": 1.0
+        }
+      },
+      "overall_status": "PASS"
+    }
+  }
+}
