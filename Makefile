@@ -6,15 +6,15 @@ all: data validate clean features train test
 #  Data Acquisition & Merge 
 data: scrape merge
 
-scrape:
-	python3 scraper/scraper.py
+# scrape:
+# 	python3 scraper/scraper.py
 
 merge:
-	python3 scraper/merge.py
+	python3 -m poetry run scraper/merge.py
 
 #  Validation 
-validate:
-	python3 validation/validation.py --data data/merged/merged_airbnb_data.csv
+# validate:
+# 	python3 validation/validation.py --data data/merged/merged_airbnb_data.csv
 
 #  Cleaning 
 clean:
