@@ -1,6 +1,18 @@
 kaggle_data
 kaggle_data/
 
+# Environment / secrets
+.env
+
+# MLflow
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Data (large files — keep structure only)
+data/raw/*.csv
+data/merged/*.csv
+data/processed/*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
