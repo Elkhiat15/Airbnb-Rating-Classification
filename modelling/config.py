@@ -14,7 +14,7 @@ try:
     CATBOOST_AVAILABLE = True
 except ImportError:
     CATBOOST_AVAILABLE = False
-    print("CatBoost not installed. Run: pip install catboost")
+    print("CatBoost not installed. Run: poetry add catboost")
 
 
 # Model configurations with hyperparameter grids
@@ -97,6 +97,7 @@ if CATBOOST_AVAILABLE:
             verbose=0,
             auto_class_weights="Balanced",
             early_stopping_rounds=10,
+            allow_writing_files=False,
         ),
         "params": {
             "iterations": [100, 200, 300],
@@ -145,16 +146,16 @@ SINGLE_CONFIGS = {
             "p": [2],
         },
     },
-    "gradient_boosting": {
-        **MODEL_CONFIGS["gradient_boosting"],
-        "params": {
-            "n_estimators": [200],
-            "max_depth": [5],
-            "learning_rate": [0.05],
-            "subsample": [0.9],
-            "min_samples_split": [5],
-        },
-    },
+    # "gradient_boosting": {
+    #     **MODEL_CONFIGS["gradient_boosting"],
+    #     "params": {
+    #         "n_estimators": [200],
+    #         "max_depth": [5],
+    #         "learning_rate": [0.05],
+    #         "subsample": [0.9],
+    #         "min_samples_split": [5],
+    #     },
+    # },
     "hist_gradient_boosting": {
         **MODEL_CONFIGS["hist_gradient_boosting"],
         "params": {
@@ -208,6 +209,6 @@ TARGET_FEATURES = ["rating_category"]
 
 TRAKING_URI = "http://127.0.0.1:5000"
 
-SINGLE_EXP_RUN = "single-training-v0"
-ENHANCED_EXP_RUN = "balanced-training-v0"
-FULL_EXP_RUN = "full-training-v0"
+SINGLE_EXP_RUN = "final-single-v0"
+FULL_EXP_RUN = "final-full-v0"
+ENHANCED_EXP_RUN = FULL_EXP_RUN

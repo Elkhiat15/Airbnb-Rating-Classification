@@ -76,7 +76,7 @@ def train_single_params(
 
         if not IMBLEARN_AVAILABLE:
             logger.warning("   imbalanced-learn not installed, skipping balancing")
-            logger.warning("   Install: pip install imbalanced-learn")
+            logger.warning("   Install: poetry add imbalanced-learn")
             balance_method = "none"
         else:
             X_train_processed, y_train = recommended_balancing(
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     if args.balance != "none" and not IMBLEARN_AVAILABLE:
         print("\n   ERROR: imbalanced-learn not installed")
         print("Install it to use SMOTE balancing:")
-        print("  pip install imbalanced-learn")
+        print("  poetry add imbalanced-learn")
         sys.exit(1)
 
     # Run training

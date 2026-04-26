@@ -48,9 +48,6 @@ train-single-smote:
 train-single-borderline:
 	poetry run python3 modelling/train_single.py --balance borderline
 
-compare-models:
-	poetry run python3 modelling/compare_models.py
-
 mlflow-ui:
 	poetry run mlflow ui
 
