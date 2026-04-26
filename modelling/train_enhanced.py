@@ -54,7 +54,7 @@ def train_with_balancing(
     if balance_method != "none":
         if not IMBLEARN_AVAILABLE:
             logger.warning("⚠️  imbalanced-learn not installed, skipping balancing")
-            logger.warning("   Install: pip install imbalanced-learn")
+            logger.warning("   Install: poetry add imbalanced-learn")
         else:
             X_train_processed, y_train = recommended_balancing(
                 X_train_processed, y_train, method=balance_method
@@ -147,13 +147,13 @@ Examples:
     if args.balance != "none" and not IMBLEARN_AVAILABLE:
         print("\n   ERROR: imbalanced-learn not installed")
         print("Install it to use SMOTE balancing:")
-        print("  pip install imbalanced-learn")
+        print("  poetry add imbalanced-learn")
         sys.exit(1)
 
     if "catboost" in (args.models or []) and not CATBOOST_AVAILABLE:
         print("\n   WARNING: CatBoost not installed")
         print("Install it for best performance:")
-        print("  pip install catboost")
+        print("  poetry add catboost")
 
     # Run training
     train_with_balancing(

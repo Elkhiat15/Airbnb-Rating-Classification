@@ -11,7 +11,7 @@ try:
     IMBLEARN_AVAILABLE = True
 except ImportError:
     IMBLEARN_AVAILABLE = False
-    print("imbalanced-learn not installed. Run: pip install imbalanced-learn")
+    print("imbalanced-learn not installed. Run: poetry add imbalanced-learn")
     print("Class balancing features will not be available.")
 
 logger = logging.getLogger(__name__)
@@ -177,4 +177,4 @@ if __name__ == "__main__":
         print(f"After SMOTE+Tomek: {Counter(y_res)}")
     else:
         print("\nInstall imbalanced-learn to test balancing methods:")
-        print("  pip install imbalanced-learn")
+        print("  poetry add imbalanced-learn")
