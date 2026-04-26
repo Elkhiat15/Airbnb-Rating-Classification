@@ -67,7 +67,7 @@ test:
 lint:
 	poetry run ruff check .
 
-check:
+format-check:
 	poetry run ruff format --check .
 
 format:

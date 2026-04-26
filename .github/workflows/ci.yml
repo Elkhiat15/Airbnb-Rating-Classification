@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    # Skip workflow if commit message contains [skip ci]
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
 
     steps:
@@ -31,5 +33,8 @@ jobs:
       - name: Run tests
         run: make test
         
-      - name: Run linters
-        run: make format
+      # - name: Lint code
+      #   run: make lint
+
+      - name: Check formatting
+        run: make format-check
