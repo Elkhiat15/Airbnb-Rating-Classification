@@ -1,10 +1,7 @@
 .PHONY: all data scrape merge validate clean features train train-smote-tomek train-smote train-borderline train-single train-single-smote-tomek train-single-smote train-single-borderline compare-models mlflow-ui test lint check format eda install-ml
 
 #  Default 
-all: data validate clean features train test
-
-#  Data Acquisition & Merge 
-data: merge
+all: merge clean features train test
 
 merge:
 	poetry run python3 scraper/merge.py
@@ -58,7 +55,7 @@ eda:
 
 #  Testing 
 test:
-	pytest tests/ -v --cov=. --cov-report=term-missing
+	poetry run pytest tests/ -v --cov=. --cov-report=term-missing
 
 #  Linting 
 lint:
