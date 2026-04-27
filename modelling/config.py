@@ -29,7 +29,11 @@ MODEL_CONFIGS = {
             max_iter=1000,
             class_weight="balanced",  # Handle class imbalance
         ),
-        "params": {"C": [0.01, 0.1, 1.0, 10.0], "solver": ["lbfgs", "saga"]},
+        "params": 
+        {"C": [0.01, 0.1, 1.0, 10.0], 
+         "solver": ["lbfgs", "saga"],
+         "max_iter": [1000, 1500, 2000],
+         },
     },
     "random_forest": {
         "model": RandomForestClassifier(
@@ -62,16 +66,16 @@ MODEL_CONFIGS = {
             "p": [1, 2],
         },
     },
-    "gradient_boosting": {
-        "model": GradientBoostingClassifier(random_state=42),
-        "params": {
-            "n_estimators": [100, 200, 300],
-            "max_depth": [3, 5, 7],
-            "learning_rate": [0.01, 0.05, 0.1],
-            "subsample": [0.8, 0.9, 1.0],
-            "min_samples_split": [2, 5, 10],
-        },
-    },
+    # "gradient_boosting": {
+    #     "model": GradientBoostingClassifier(random_state=42),
+    #     "params": {
+    #         "n_estimators": [100, 200, 300],
+    #         "max_depth": [3, 5, 7],
+    #         "learning_rate": [0.01, 0.05, 0.1],
+    #         "subsample": [0.8, 0.9, 1.0],
+    #         "min_samples_split": [2, 5, 10],
+    #     },
+    # },
     "hist_gradient_boosting": {
         "model": HistGradientBoostingClassifier(
             random_state=42,
@@ -209,6 +213,8 @@ TARGET_FEATURES = ["rating_category"]
 
 TRAKING_URI = "http://127.0.0.1:5000"
 
-SINGLE_EXP_RUN = "final-single-v0"
-FULL_EXP_RUN = "final-full-v0"
+SINGLE_EXP_RUN = "test-single-v0"
+FULL_EXP_RUN = "final-full-balnced-v1"
 ENHANCED_EXP_RUN = FULL_EXP_RUN
+
+MODELS_DIR = "models/"

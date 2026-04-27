@@ -267,7 +267,7 @@ def test_train_and_log_baseline(mock_mlflow, train_test_dfs):
     train_df, test_df = train_test_dfs
     X_train, X_test, y_train, y_test, preprocessor, le = prepare_data(train_df, test_df)
 
-    pipeline = train_and_log(
+    pipeline, _ = train_and_log(
         model_name="baseline_test",
         model=DummyClassifier(strategy="most_frequent"),
         param_grid={},
@@ -293,7 +293,7 @@ def test_train_and_log_with_grid_search(mock_mlflow, train_test_dfs):
     train_df, test_df = train_test_dfs
     X_train, X_test, y_train, y_test, preprocessor, le = prepare_data(train_df, test_df)
 
-    pipeline = train_and_log(
+    pipeline, _ = train_and_log(
         model_name="logreg_test",
         model=LogisticRegression(max_iter=200, random_state=42),
         param_grid={"C": [0.1, 1.0]},
@@ -303,7 +303,6 @@ def test_train_and_log_with_grid_search(mock_mlflow, train_test_dfs):
         y_test=y_test,
         preprocessor=preprocessor,
         label_encoder=le,
-        use_grid_search=True,
         cv_folds=2,
     )
     assert isinstance(pipeline, Pipeline)

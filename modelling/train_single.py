@@ -112,7 +112,7 @@ def train_single_params(
                 if balance_method == "none"
                 else f"{model_name}_single_balanced_{balance_method}"
             )
-            best_pipeline = train_and_log(
+            best_pipeline, test_f1 = train_and_log(
                 model_name=model_run_name,
                 model=config["model"],
                 param_grid=config["params"],
@@ -122,11 +122,10 @@ def train_single_params(
                 y_test=y_test,
                 preprocessor=preprocessor,
                 label_encoder=label_encoder,
-                use_grid_search=True,  # Will be fast since only 1 param set
                 cv_folds=3,
             )
 
-            if model_name == "xgboost":
+            if model_run_name == "xgboost_single":
                 save_dashboard_model(best_pipeline, model_name)
 
             results[model_name] = "SUCCESS"
