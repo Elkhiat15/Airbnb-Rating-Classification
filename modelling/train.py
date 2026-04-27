@@ -5,6 +5,7 @@ from pathlib import Path
 import time
 import warnings
 import sys
+
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -55,7 +56,7 @@ def load_splits(data_dir: str = "data/processed/"):
 
     logger.info(f"  Train: {train_df.shape}")
     logger.info(f"  Test:  {test_df.shape}")
-    logger.info(f"  Note: k-fold CV on train set for hyperparameter tuning")
+    logger.info("  Note: k-fold CV on train set for hyperparameter tuning")
 
     return train_df, test_df
 
@@ -83,7 +84,7 @@ def prepare_data(train_df, test_df):
     logger.info(
         f"  Encoded labels: {dict(zip(label_encoder.classes_, range(len(label_encoder.classes_))))}"
     )
-    logger.info(f"  Class distribution (train):")
+    logger.info("  Class distribution (train):")
     for cls, count in y_train_raw.value_counts().items():
         logger.info(f"    {cls}: {count} ({count / len(y_train) * 100:.2f}%)")
 
@@ -163,7 +164,9 @@ def train_and_log(
                     verbose=1,
                 )
             else:
-                logger.info(f"  Using RandomizedSearchCV (>{15} candidates, sampling {n_iter})")
+                logger.info(
+                    f"  Using RandomizedSearchCV (>{15} candidates, sampling {n_iter})"
+                )
                 # Use RandomizedSearchCV for large grids
                 search = RandomizedSearchCV(
                     pipeline,
@@ -191,7 +194,7 @@ def train_and_log(
 
         else:
             # No hyperparameter tuning (e.g., baseline)
-            logger.info(f"  Training without hyperparameter tuning...")
+            logger.info("  Training without hyperparameter tuning...")
             best_pipeline = pipeline.fit(X_train, y_train)
 
         # Log model metadata
@@ -241,7 +244,7 @@ def train_and_log(
         # Log training metrics to detect overfitting
         mlflow.log_metric("train_accuracy", train_std_metrics["accuracy"])
         mlflow.log_metric("train_f1_macro", train_std_metrics["f1_macro"])
-        logger.info(f"\n  Overfitting check:")
+        logger.info("\n  Overfitting check:")
         logger.info(f"    Train accuracy: {train_std_metrics['accuracy']:.4f}")
         logger.info(f"    Test accuracy:  {test_std_metrics['accuracy']:.4f}")
         logger.info(f"    Train F1:       {train_std_metrics['f1_macro']:.4f}")
@@ -271,7 +274,7 @@ def train_and_log(
         # Save model with joblib
         models_path = Path(MODELS_DIR)
         models_path.mkdir(parents=True, exist_ok=True)
-        
+
         model_path = models_path / f"{model_name}.pkl"
         joblib.dump(best_pipeline, model_path)
         logger.info(f"  Model saved locally: {model_path}")
@@ -321,7 +324,7 @@ def train_all_models(
 
     for model_name, config in configs.items():
         try:
-            trained_pipeline, test_f1 = train_and_log( 
+            trained_pipeline, test_f1 = train_and_log(
                 model_name=model_name,
                 model=config["model"],
                 param_grid=config["params"],
@@ -358,7 +361,7 @@ def train_all_models(
     logger.info("TRAINING COMPLETE")
     logger.info("=" * 70)
     logger.info(f"Successfully trained {len(trained_models)} models")
-    logger.info(f"View results: mlflow ui")
+    logger.info("View results: mlflow ui")
 
     return trained_models
 

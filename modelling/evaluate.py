@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from sklearn.metrics import (
     accuracy_score,
     balanced_accuracy_score,
@@ -113,8 +112,6 @@ def error_analysis(y_true, y_pred, X_test=None, feature_names=None) -> dict:
         errors_mask = np.array(y_true) != np.array(y_pred)
 
         if errors_mask.sum() > 0:
-            X_test_arr = np.array(X_test)
-
             # Store error patterns for reporting
             analysis["error_patterns"] = {
                 "total_errors": int(errors_mask.sum()),

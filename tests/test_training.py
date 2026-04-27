@@ -4,7 +4,7 @@ import numpy as np
 from unittest.mock import patch, MagicMock
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import LabelEncoder, FunctionTransformer
+from sklearn.preprocessing import LabelEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
@@ -22,7 +22,7 @@ from modelling.evaluate import (
     print_evaluation_summary,
 )
 
-from modelling.train import *
+from modelling.train import load_splits, prepare_data, train_and_log
 
 
 # ── Fixtures ─────────────────────────────────────────────

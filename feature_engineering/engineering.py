@@ -140,12 +140,12 @@ def add_log_transforms(df: pd.DataFrame) -> pd.DataFrame:
     # Log transform price (right-skewed)
     if "price" in df.columns:
         df["log_price"] = np.log1p(df["price"])
-        logger.info(f"  Created log_price feature")
+        logger.info("  Created log_price feature")
 
     # Log transform number_of_reviews (right-skewed)
     if "number_of_reviews" in df.columns:
         df["log_number_of_reviews"] = np.log1p(df["number_of_reviews"])
-        logger.info(f"  Created log_number_of_reviews feature")
+        logger.info("  Created log_number_of_reviews feature")
 
     return df
 

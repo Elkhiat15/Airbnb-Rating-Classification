@@ -1,9 +1,6 @@
 import argparse
 import logging
-import os
 from pathlib import Path
-
-import numpy as np
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -118,7 +115,7 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
         )
 
         df["host_identity_verified"] = df["host_identity_verified"].astype(bool)
-        logger.info(f"  Normalized host_identity_verified to boolean")
+        logger.info("  Normalized host_identity_verified to boolean")
 
     return df
 

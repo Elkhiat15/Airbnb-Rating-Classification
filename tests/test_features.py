@@ -7,8 +7,24 @@ from feature_engineering.transformations import (
     scale_numerics,
     log_transform,
 )
-from feature_engineering.engineering import *
-from feature_engineering.selection import correlation_filter, mutual_information_ranking
+from feature_engineering.engineering import (
+    add_amenity_count,
+    add_price_ratios,
+    add_categorical_flags,
+    add_listing_density,
+    engineer_features,
+    add_price_relative_features,
+)
+from feature_engineering.selection import (
+    select_features,
+    categorize_rating,
+    bin_target_variable,
+    drop_unwanted_features,
+    prepare_ready_features,
+    create_train_test_split,
+    correlation_filter,
+    mutual_information_ranking,
+)
 
 
 class TestTransformations:
@@ -118,6 +134,24 @@ class TestTransformations:
 
         _ = log_transform(df, columns=["price"])
         pd.testing.assert_frame_equal(df, original_df)
+
+    def test_encode_categoricals_missing_col(self):
+        """Test that encode_categoricals safely skips missing columns."""
+        df = pd.DataFrame({"price": [100, 200]})
+        result = encode_categoricals(df, columns=["nonexistent_col"])
+        pd.testing.assert_frame_equal(result, df)
+
+    def test_scale_numerics_missing_col(self):
+        """Test that scale_numerics safely skips when no columns are found."""
+        df = pd.DataFrame({"price": [100, 200]})
+        result = scale_numerics(df, columns=["nonexistent_col"])
+        pd.testing.assert_frame_equal(result, df)
+
+    def test_log_transform_missing_col(self):
+        """Test that log_transform safely skips missing columns."""
+        df = pd.DataFrame({"price": [100, 200]})
+        result = log_transform(df, columns=["nonexistent_col"])
+        pd.testing.assert_frame_equal(result, df)
 
 
 class TestEngineering:
@@ -233,6 +267,34 @@ class TestEngineering:
         _ = add_price_ratios(df)
         pd.testing.assert_frame_equal(df, original_df)
 
+    def test_add_amenity_count_missing_col(self):
+        """Test amenity count safely handles missing amenities column."""
+        df = pd.DataFrame({"price": [100, 200]})
+        result = add_amenity_count(df)
+        pd.testing.assert_frame_equal(result, df)
+
+    def test_add_listing_density_missing_col(self):
+        """Test listing density safely handles missing neighbourhood column."""
+        df = pd.DataFrame({"price": [100, 200]})
+        result = add_listing_density(df)
+        pd.testing.assert_frame_equal(result, df)
+
+    def test_add_price_relative_features(self):
+        """Test that price relative features are calculated properly."""
+        df = pd.DataFrame(
+            {
+                "price": [100, 200, 150, 250],
+                "room_type": ["Entire", "Entire", "Private", "Private"],
+                "city": ["NYC", "LA", "NYC", "LA"],
+            }
+        )
+        result = add_price_relative_features(df)
+
+        assert "price_relative_to_room_type" in result.columns
+        assert "price_relative_to_city" in result.columns
+        # Median of Entire is 150. (100-150)/std
+        assert not pd.isna(result["price_relative_to_room_type"].iloc[0])
+
 
 class TestSelection:
     """Tests for feature selection."""
@@ -286,6 +348,95 @@ class TestSelection:
         assert len(result) == 5
         assert isinstance(result, list)
         assert all(f in X.columns for f in result)
+
+    def test_categorize_rating(self):
+        """Test rating categorization logic."""
+        assert categorize_rating(2.0) == "Low Rating"
+        assert categorize_rating(4.0) == "Medium Rating"
+        assert categorize_rating(4.8) == "High Rating"
+        assert categorize_rating(5.0) == "Very High Rating"
+        assert categorize_rating(6.0) is None
+
+    def test_bin_target_variable(self):
+        """Test binning target variable and dropping logic."""
+        df = pd.DataFrame({"review_scores_rating": [2.0, 4.0, 4.8, 5.0]})
+
+        # Default behavior: drops 'Low Rating'
+        result_dropped = bin_target_variable(df, drop_low_ratings=True)
+        assert len(result_dropped) == 3
+        assert "Low Rating" not in result_dropped["rating_category"].values
+
+        # Keep all ratings
+        result_kept = bin_target_variable(df, drop_low_ratings=False)
+        assert len(result_kept) == 4
+        assert "Low Rating" in result_kept["rating_category"].values
+
+    def test_select_features_pipeline(self):
+        """Test the end-to-end selection feature pipeline."""
+        np.random.seed(42)
+        df = pd.DataFrame(
+            {
+                "feature1": [1, 2, 3, 4, 5],
+                "feature2": [1, 2, 3, 4, 5],  # Correlated with feature1
+                "feature3": [5, 1, 4, 2, 3],
+                "review_scores_rating": [0, 1, 0, 1, 0],
+            }
+        )
+
+        result = select_features(
+            df,
+            target_col="review_scores_rating",
+            use_correlation_filter=True,
+            use_mi_ranking=True,
+            mi_top_k=1,
+        )
+        assert "review_scores_rating" in result.columns
+        assert len(result.columns) < len(df.columns)
+
+    def test_select_features_missing_target(self):
+        """Test select_features throws error if target is missing."""
+        df = pd.DataFrame({"f1": [1, 2]})
+        with pytest.raises(ValueError, match="not found in DataFrame"):
+            select_features(df, target_col="target")
+
+    def test_drop_unwanted_features(self):
+        """Test unwanted features are dropped if they exist."""
+        df = pd.DataFrame({"keep_me": [1], "beds": [2], "number_of_reviews": [3]})
+        result = drop_unwanted_features(df)
+        assert "keep_me" in result.columns
+        assert "beds" not in result.columns
+        assert "number_of_reviews" not in result.columns
+
+    def test_prepare_ready_features(self):
+        """Test preparation drops high-cardinality and specific columns."""
+        df = pd.DataFrame({"keep_me": [1], "id": [123], "price": [100]})
+        result = prepare_ready_features(df)
+        assert "keep_me" in result.columns
+        assert "id" not in result.columns
+        assert "price" not in result.columns
+
+    def test_create_train_test_split(self):
+        """Test train test split with stratification."""
+        df = pd.DataFrame(
+            {
+                "feature": range(10),
+                "rating_category": ["High"] * 4 + ["Low"] * 4 + ["Medium"] * 2,
+            }
+        )
+        train, test = create_train_test_split(
+            df, target_col="rating_category", train_ratio=0.7, test_ratio=0.3
+        )
+        assert len(train) == 7
+        assert len(test) == 3
+
+    def test_create_train_test_split_missing_stratify_col(self):
+        """Test fallback when stratify column is missing."""
+        df = pd.DataFrame({"feature": range(10), "rating_category": [0] * 5 + [1] * 5})
+        train, test = create_train_test_split(
+            df, target_col="rating_category", stratify_cols=["nonexistent_col"]
+        )
+        assert len(train) == 8
+        assert len(test) == 2
 
 
 class TestFeaturePipeline:

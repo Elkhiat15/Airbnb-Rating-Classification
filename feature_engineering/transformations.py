@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import logging
 
 logger = logging.getLogger(__name__)
@@ -50,7 +50,7 @@ def scale_numerics(
     existing_cols = [col for col in columns if col in df.columns]
 
     if len(existing_cols) == 0:
-        logger.warning(f"None of the specified columns found in DataFrame")
+        logger.warning("None of the specified columns found in DataFrame")
         return df
 
     df[existing_cols] = scaler.fit_transform(df[existing_cols])

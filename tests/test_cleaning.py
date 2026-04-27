@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
-import pytest
 
-from cleaning.cleaning import *
+from cleaning.cleaning import (
+    normalize_columns,
+    handle_missing_values,
+    handle_outliers,
+    clean_pipeline,
+)
 
 
 class TestNormalizeColumns:
@@ -49,6 +53,8 @@ class TestNormalizeColumns:
                     "Private room",
                     "Entire home/apt",
                     "Shared room",
+                    "Room",
+                    "",
                 ]
             }
         )
@@ -59,6 +65,8 @@ class TestNormalizeColumns:
             "Private room",
             "Entire home/apt",
             "Shared room",
+            "Private room",
+            "",
         ]
         assert list(result["room_type"]) == expected
 
@@ -116,6 +124,11 @@ class TestHandleMissingValues:
                 "bedrooms": [None, 2, 3],
                 "beds": [1, None, 3],
                 "review_scores_rating": [4.5, 4.0, 3.5],
+                "room_type": [
+                    "Entire home/apt",
+                    "Shared room",
+                    "Private room",
+                ],
             }
         )
         result = handle_missing_values(df)
@@ -330,11 +343,9 @@ class TestCleaningPipeline:
         )
 
         # Split into "train" and "test"
-        train = df.iloc[:2].copy()
         test = df.iloc[2:].copy()
 
         # Process separately
-        train_clean = handle_missing_values(train)
         test_clean = handle_missing_values(test)
 
         # Ensure test data wasn't affected by train data statistics
