@@ -5,6 +5,7 @@ from pathlib import Path
 import time
 import warnings
 import sys
+
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -163,7 +164,9 @@ def train_and_log(
                     verbose=1,
                 )
             else:
-                logger.info(f"  Using RandomizedSearchCV (>{15} candidates, sampling {n_iter})")
+                logger.info(
+                    f"  Using RandomizedSearchCV (>{15} candidates, sampling {n_iter})"
+                )
                 # Use RandomizedSearchCV for large grids
                 search = RandomizedSearchCV(
                     pipeline,
@@ -271,7 +274,7 @@ def train_and_log(
         # Save model with joblib
         models_path = Path(MODELS_DIR)
         models_path.mkdir(parents=True, exist_ok=True)
-        
+
         model_path = models_path / f"{model_name}.pkl"
         joblib.dump(best_pipeline, model_path)
         logger.info(f"  Model saved locally: {model_path}")
@@ -321,7 +324,7 @@ def train_all_models(
 
     for model_name, config in configs.items():
         try:
-            trained_pipeline, test_f1 = train_and_log( 
+            trained_pipeline, test_f1 = train_and_log(
                 model_name=model_name,
                 model=config["model"],
                 param_grid=config["params"],

@@ -112,7 +112,6 @@ def train_with_balancing(
                 best_model = trained_pipeline
                 best_model_name = model_name
 
-
         except Exception as e:
             logger.error(f" Error training {model_name}: {str(e)}")
             continue

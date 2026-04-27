@@ -28,11 +28,11 @@ MODEL_CONFIGS = {
             max_iter=1000,
             class_weight="balanced",  # Handle class imbalance
         ),
-        "params": 
-        {"C": [0.01, 0.1, 1.0, 10.0], 
-         "solver": ["lbfgs", "saga"],
-         "max_iter": [1000, 1500, 2000],
-         },
+        "params": {
+            "C": [0.01, 0.1, 1.0, 10.0],
+            "solver": ["lbfgs", "saga"],
+            "max_iter": [1000, 1500, 2000],
+        },
     },
     "random_forest": {
         "model": RandomForestClassifier(

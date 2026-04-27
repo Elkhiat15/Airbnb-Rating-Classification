@@ -112,7 +112,6 @@ def error_analysis(y_true, y_pred, X_test=None, feature_names=None) -> dict:
         errors_mask = np.array(y_true) != np.array(y_pred)
 
         if errors_mask.sum() > 0:
-
             # Store error patterns for reporting
             analysis["error_patterns"] = {
                 "total_errors": int(errors_mask.sum()),

@@ -1,7 +1,12 @@
 import pandas as pd
 import numpy as np
 
-from cleaning.cleaning import normalize_columns, handle_missing_values, handle_outliers, clean_pipeline
+from cleaning.cleaning import (
+    normalize_columns,
+    handle_missing_values,
+    handle_outliers,
+    clean_pipeline,
+)
 
 
 class TestNormalizeColumns:
@@ -48,6 +53,8 @@ class TestNormalizeColumns:
                     "Private room",
                     "Entire home/apt",
                     "Shared room",
+                    "Room",
+                    "",
                 ]
             }
         )
@@ -58,6 +65,8 @@ class TestNormalizeColumns:
             "Private room",
             "Entire home/apt",
             "Shared room",
+            "Private room",
+            "",
         ]
         assert list(result["room_type"]) == expected
 
@@ -115,6 +124,11 @@ class TestHandleMissingValues:
                 "bedrooms": [None, 2, 3],
                 "beds": [1, None, 3],
                 "review_scores_rating": [4.5, 4.0, 3.5],
+                "room_type": [
+                    "Entire home/apt",
+                    "Shared room",
+                    "Private room",
+                ],
             }
         )
         result = handle_missing_values(df)
