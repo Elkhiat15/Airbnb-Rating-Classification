@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-import pytest
 
-from cleaning.cleaning import *
+from cleaning.cleaning import normalize_columns, handle_missing_values, handle_outliers, clean_pipeline
 
 
 class TestNormalizeColumns:
@@ -330,11 +329,9 @@ class TestCleaningPipeline:
         )
 
         # Split into "train" and "test"
-        train = df.iloc[:2].copy()
         test = df.iloc[2:].copy()
 
         # Process separately
-        train_clean = handle_missing_values(train)
         test_clean = handle_missing_values(test)
 
         # Ensure test data wasn't affected by train data statistics

@@ -105,7 +105,7 @@ def merge_sources(
     logger.info(f"\nSaving merged data to {output_path}")
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     merged_df.to_csv(output_path, index=False)
-    logger.info(f"   File saved successfully")
+    logger.info("   File saved successfully")
 
     logger.info("\n" + "=" * 70)
     logger.info("MERGE COMPLETE")

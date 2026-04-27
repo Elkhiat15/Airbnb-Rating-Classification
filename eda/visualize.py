@@ -602,15 +602,6 @@ def plot_price_by_room_type(
         color="skyblue",
         edgecolor="black",
     )
-    bars2 = ax2_twin.bar(
-        x + width / 2,
-        room_stats["count"],
-        width,
-        label="Count",
-        alpha=0.8,
-        color="coral",
-        edgecolor="black",
-    )
 
     ax2.set_xlabel("Room Type")
     ax2.set_ylabel("Mean Price (USD)", color="skyblue")

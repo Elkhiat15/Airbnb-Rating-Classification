@@ -3,12 +3,14 @@ import sys
 from pathlib import Path
 import warnings
 import joblib
+from sklearn.preprocessing import FunctionTransformer
+import mlflow
+import logging
 
 warnings.filterwarnings("ignore", category=UserWarning, module="mlflow")
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from sklearn.preprocessing import FunctionTransformer
 from modelling.train import load_splits, prepare_data, train_and_log
 from modelling.config import (
     MODEL_CONFIGS,
@@ -18,8 +20,6 @@ from modelling.config import (
     MODELS_DIR,
 )
 from modelling.class_balancing import recommended_balancing, IMBLEARN_AVAILABLE
-import mlflow
-import logging
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"

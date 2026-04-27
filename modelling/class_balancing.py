@@ -1,12 +1,10 @@
 import numpy as np
-import pandas as pd
 from collections import Counter
 import logging
 
 try:
-    from imblearn.over_sampling import SMOTE, ADASYN, BorderlineSMOTE
-    from imblearn.combine import SMOTETomek, SMOTEENN
-    from imblearn.under_sampling import TomekLinks, EditedNearestNeighbours
+    from imblearn.over_sampling import SMOTE, BorderlineSMOTE
+    from imblearn.combine import SMOTETomek
 
     IMBLEARN_AVAILABLE = True
 except ImportError:

@@ -100,7 +100,7 @@ def load_featured_data(data_path: str = "data/processed/featured.csv"):
 
 
 @st.cache_resource
-def load_dashboard_model(model_path: str = "models/best_model.pkl"):
+def load_dashboard_model(model_path: str = "models/xgboost_dashboard.pkl"):
     """Load the saved dashboard model."""
     try:
         return joblib.load(model_path)
@@ -405,7 +405,6 @@ def show_predict_section(featured_df):
             )
 
             st.markdown("**Host**")
-            host_verified = st.checkbox("Host Identity Verified", value=True)
             host_response_rate = st.slider("Host Response Rate (%):", 0, 100, 95)
 
         with col3:

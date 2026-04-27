@@ -5,6 +5,7 @@ kaggle_data/
 .env
 
 models/
+howto.md
 
 # MLflow
 mlruns/

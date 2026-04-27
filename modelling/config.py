@@ -2,7 +2,6 @@ from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import (
     RandomForestClassifier,
-    GradientBoostingClassifier,
     HistGradientBoostingClassifier,
 )
 from sklearn.neighbors import KNeighborsClassifier

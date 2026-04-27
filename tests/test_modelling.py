@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import pytest
-from unittest.mock import patch, MagicMock
 from collections import Counter
 
 from modelling.evaluate import (
@@ -28,7 +27,7 @@ from modelling.class_balancing import recommended_balancing
 
 from sklearn.compose import ColumnTransformer
 from sklearn.dummy import DummyClassifier
-from modelling.train import *
+from modelling.train import prepare_data, load_splits
 
 # ── Fixtures ─────────────────────────────────────────────
 

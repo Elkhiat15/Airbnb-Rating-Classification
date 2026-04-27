@@ -129,7 +129,7 @@ def bin_target_variable(
 
     # Log the distribution before dropping
     logger.info(f"  Binned target variable '{target_col}' -> '{new_col_name}'")
-    logger.info(f"  Class distribution (before dropping Low):")
+    logger.info("  Class distribution (before dropping Low):")
     for category, count in df[new_col_name].value_counts().sort_index().items():
         pct = (count / len(df)) * 100
         logger.info(f"    {category}: {count} ({pct:.2f}%)")
@@ -143,7 +143,7 @@ def bin_target_variable(
             f"  Dropped {dropped_rows} Low Rating rows ({dropped_rows / initial_rows * 100:.2f}%)"
         )
 
-        logger.info(f"  Final class distribution:")
+        logger.info("  Final class distribution:")
         for category, count in df[new_col_name].value_counts().sort_index().items():
             pct = (count / len(df)) * 100
             logger.info(f"    {category}: {count} ({pct:.2f}%)")
@@ -172,7 +172,7 @@ def drop_unwanted_features(
         )
     else:
         logger.info(
-            f"  No features to drop (all specified features already removed or don't exist)"
+            "  No features to drop (all specified features already removed or don't exist)"
         )
 
     return df
@@ -208,9 +208,9 @@ def prepare_ready_features(df: pd.DataFrame) -> pd.DataFrame:
         logger.info(
             f"  Dropped {len(features_to_drop)} features for modeling readiness:"
         )
-        logger.info(f"    High cardinality: id, amenities, latitude, longitude")
+        logger.info("    High cardinality: id, amenities, latitude, longitude")
         logger.info(
-            f"    High correlation: price, price_relative_to_city, price_per_guest"
+            "    High correlation: price, price_relative_to_city, price_per_guest"
         )
         logger.info(
             f"  Retained features: {len(df.columns) - 2} (excluding review_scores_rating, rating_category)"
@@ -258,7 +258,7 @@ def create_train_test_split(
     )
 
     # Log stratification verification
-    logger.info(f"  Stratification verification:")
+    logger.info("  Stratification verification:")
     for split_name, split_df in [("Train", train_df), ("Test", test_df)]:
         target_dist = split_df[target_col].value_counts(normalize=True).sort_index()
         logger.info(
