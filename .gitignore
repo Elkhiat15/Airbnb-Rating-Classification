@@ -4,6 +4,8 @@ kaggle_data/
 # Environment / secrets
 .env
 
+models/
+
 # MLflow
 mlruns/
 mlartifacts/

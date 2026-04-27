@@ -2,6 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 import warnings
+import joblib
 
 warnings.filterwarnings("ignore", category=UserWarning, module="mlflow")
 
@@ -14,6 +15,7 @@ from modelling.config import (
     CATBOOST_AVAILABLE,
     TRAKING_URI,
     ENHANCED_EXP_RUN,
+    MODELS_DIR,
 )
 from modelling.class_balancing import recommended_balancing, IMBLEARN_AVAILABLE
 import mlflow
@@ -83,10 +85,13 @@ def train_with_balancing(
     passthrough_preprocessor = FunctionTransformer()
 
     trained_models = {}
+    best_model = None
+    best_model_name = None
+    best_f1 = -1  # Track best F1
 
     for model_name, config in configs.items():
         try:
-            trained_pipeline = train_and_log(
+            trained_pipeline, test_f1 = train_and_log(
                 model_name=f"{model_name}_balanced_{balance_method}",
                 model=config["model"],
                 param_grid=config["params"],
@@ -101,9 +106,24 @@ def train_with_balancing(
 
             trained_models[model_name] = trained_pipeline
 
+            # Track best model
+            if test_f1 > best_f1:
+                best_f1 = test_f1
+                best_model = trained_pipeline
+                best_model_name = model_name
+
+
         except Exception as e:
             logger.error(f" Error training {model_name}: {str(e)}")
             continue
+
+    # Save best model
+    if best_model is not None:
+        models_path = Path(MODELS_DIR)
+        best_model_path = models_path / "best_balanced_model.pkl"
+        joblib.dump(best_model, best_model_path)
+        logger.info(f"\nBest Balanced model: {best_model_name} (F1: {best_f1:.4f})")
+        logger.info(f"Best Balanced model saved to: {best_model_path}")
 
     logger.info(f"Successfully trained {len(trained_models)} models")
 

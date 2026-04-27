@@ -1,8 +1,13 @@
 import argparse
 import logging
+import joblib
 from pathlib import Path
 import time
 import warnings
+import sys
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 
 import numpy as np
 import pandas as pd
@@ -20,6 +25,7 @@ from modelling.config import (
     TARGET_FEATURES,
     TRAKING_URI,
     FULL_EXP_RUN,
+    MODELS_DIR,
 )
 
 from modelling.evaluate import (
@@ -117,7 +123,6 @@ def train_and_log(
     y_test,
     preprocessor,
     label_encoder,
-    use_grid_search: bool = True,
     cv_folds: int = 3,
     n_iter: int = 10,
 ):
@@ -141,7 +146,13 @@ def train_and_log(
         if param_grid:
             logger.info(f"  Hyperparameter tuning with {len(param_grid)} parameters...")
 
-            if use_grid_search or len(param_grid) <= 3:
+            # Calculate total candidates (cartesian product of all param values)
+            total_candidates = 1
+            for values in param_grid.values():
+                total_candidates *= len(values)
+
+            if total_candidates <= 15:
+                logger.info("  Using GridSearchCV")
                 # Use GridSearchCV for small grids or if specified
                 search = GridSearchCV(
                     pipeline,
@@ -152,6 +163,7 @@ def train_and_log(
                     verbose=1,
                 )
             else:
+                logger.info(f"  Using RandomizedSearchCV (>{15} candidates, sampling {n_iter})")
                 # Use RandomizedSearchCV for large grids
                 search = RandomizedSearchCV(
                     pipeline,
@@ -203,8 +215,10 @@ def train_and_log(
         train_std_metrics = standard_metrics(y_train_true, y_train_pred)
         test_std_metrics = standard_metrics(y_test_true, y_test_pred)
 
-        train_bus_metrics = business_metrics(y_train_true, y_train_pred)
+        # train_bus_metrics = business_metrics(y_train_true, y_train_pred)
         test_bus_metrics = business_metrics(y_test_true, y_test_pred)
+
+        test_f1 = test_std_metrics["f1_macro"]
 
         # Log standard metrics (test set)
         logger.info("\n  Standard Metrics (Test Set):")
@@ -254,7 +268,15 @@ def train_and_log(
         all_metrics = {**test_std_metrics, **test_bus_metrics}
         print_evaluation_summary(all_metrics, model_name)
 
-    return best_pipeline
+        # Save model with joblib
+        models_path = Path(MODELS_DIR)
+        models_path.mkdir(parents=True, exist_ok=True)
+        
+        model_path = models_path / f"{model_name}.pkl"
+        joblib.dump(best_pipeline, model_path)
+        logger.info(f"  Model saved locally: {model_path}")
+
+    return best_pipeline, test_f1
 
 
 def train_all_models(
@@ -293,10 +315,13 @@ def train_all_models(
 
     # Train each model
     trained_models = {}
+    best_model = None
+    best_model_name = None
+    best_f1 = -1  # Track best F1
 
     for model_name, config in configs.items():
         try:
-            trained_pipeline = train_and_log(
+            trained_pipeline, test_f1 = train_and_log( 
                 model_name=model_name,
                 model=config["model"],
                 param_grid=config["params"],
@@ -311,9 +336,23 @@ def train_all_models(
 
             trained_models[model_name] = trained_pipeline
 
+            # Track best model
+            if test_f1 > best_f1:
+                best_f1 = test_f1
+                best_model = trained_pipeline
+                best_model_name = model_name
+
         except Exception as e:
             logger.error(f"Error training {model_name}: {str(e)}")
             continue
+
+    # Save best model
+    if best_model is not None:
+        models_path = Path(MODELS_DIR)
+        best_model_path = models_path / "best_model.pkl"
+        joblib.dump(best_model, best_model_path)
+        logger.info(f"\nBest model: {best_model_name} (F1: {best_f1:.4f})")
+        logger.info(f"Best model saved to: {best_model_path}")
 
     logger.info("\n" + "=" * 70)
     logger.info("TRAINING COMPLETE")
